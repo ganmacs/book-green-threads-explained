@@ -23,10 +23,13 @@ When we set the `stack pointer`in a _16 byte aligned_ stack, we need to make sur
 If we add the following lines of code to our example in the last chapter just before we do the switch in our main function, we can effectively print out our stack and have a look at it:
 
 ```rust
+let stack_ptr = stack.as_mut_ptr();
 for i in (0..SSIZE).rev() {
-    println!("mem: {}, val: {}",
-    sb_aligned.offset(i as isize) as usize,
-    *sb_aligned.offset(i as isize))
+    println!(
+        "mem: {}, val: {}",
+        stack_ptr.offset(i as isize) as usize,
+        *stack_ptr.offset(i as isize)
+    )
 }
 ```
 
